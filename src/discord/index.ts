@@ -15,7 +15,6 @@ export default function runDiscordBot(): void{
     discordBot.on("messageCreate", (message: Message)=>{
         if(message.author.bot) return;
         if(!message.channel.isDMBased()) return;
-        const cId = message.channelId;
         let redirect_message = message.content + '\n';
         message.attachments.map(item => redirect_message += item.url + '\n');
         eventHandler.emit('discordMsg', redirect_message);
@@ -42,9 +41,7 @@ export default function runDiscordBot(): void{
                     msg.files.map((item: string)=>{
                         imagesPath.push( path.join(__dirname, `../${item}`));
                     });
-                }else{
-                    imagesPath = undefined;
-                }
+                }else imagesPath = undefined;
                 dm.send({content: msg.text, files: imagesPath ?? null});
             });
         }catch (err){

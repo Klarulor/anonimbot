@@ -24,24 +24,16 @@ export default function runTelegramBot() {
     telegramBot.help((ctx) => ctx.reply('Send me a sticker'));
 
     telegramBot.on('sticker', (ctx) => telegram.getFileLink(ctx.message?.sticker.file_id).then(async (photoURL) => {
-        download(photoURL.href, ctx.message?.sticker.file_id, "stickerCache", function () {
-            eventHandler.emit('stickerSend', `stickerCache/${ctx.message?.sticker.file_id}.${photoURL.href.split('.').pop()}`);
-        });
+        download(photoURL.href, ctx.message?.sticker.file_id, "stickerCache", () =>  eventHandler.emit('stickerSend', `stickerCache/${ctx.message?.sticker.file_id}.${photoURL.href.split('.').pop()}`));
     }));
 
-    eventHandler.on("discordMsg", (Msg) => {
-        telegram.sendMessage(1219632518, Msg);
-    });
+    eventHandler.on("discordMsg", (Msg) => telegram.sendMessage(1219632518, Msg));
 
     telegramBot.on('message', async (ctx) => {
         const downloadEm = new EventEmitter();
         telegramMessageParser(ctx, telegram, downloadEm);
-        downloadEm.on("messageConverted", (obj:IParsedMessage)=>{
-            eventHandler.emit("telegramMessage", obj);
-        });
+        downloadEm.on("messageConverted", (obj:IParsedMessage) => eventHandler.emit("telegramMessage", obj));
     });
 
-    telegramBot.launch().then(() => {
-        console.log("Launched Telegram Bor")
-    });
+    telegramBot.launch().then(() => console.log("Launched Telegram Bor"));
 }

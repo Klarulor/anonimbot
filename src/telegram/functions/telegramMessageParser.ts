@@ -11,9 +11,7 @@ export interface IParsedMessage {
 
 const download = function (uri: any, filename: any, pathName: any, callback: any = function () {
 }) {
-    request.head(uri, async function (err: any, res: any, body: any) {
-        request(uri).pipe(fs.createWriteStream(`src/${pathName}/${filename}.${uri.split('.').pop()}`)).on('close', callback);
-    });
+    request.head(uri, async (err: any, res: any, body: any) => request(uri).pipe(fs.createWriteStream(`src/${pathName}/${filename}.${uri.split('.').pop()}`)).on('close', callback));
 };
 
 export default function telegramMessageParser(ctx: any, telegram: Telegram, downloadEm: EventEmitter) {
@@ -104,8 +102,8 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
             }
         });
 
-        let text = "";
-        let files: string[] = []
+        //let text = "";
+        const files: string[] = []
 
         //@ts-ignore
         if (ctx.message?.video !== undefined) {
@@ -116,7 +114,7 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
                     //@ts-ignore
                     files.push(`telegramImageCache/${ctx.message?.video.file_id}.${url.href.split('.').pop()}`);
                     //@ts-ignore
-                    text = ctx.message?.caption || " ";
+                    //text = ctx.message?.caption || " ";
                     downloadEm.emit('photo');
                 });
             });

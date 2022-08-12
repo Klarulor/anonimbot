@@ -2,7 +2,7 @@ import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
 import {mySQLConnection} from "../bot";
 
 export type Platform = "DISCORD" | "TELEGRAM";
-export type Lang = "ru" | "ua" | "en";
+export type Language = "ru" | "ua" | "en";
 export type Gender = "FEMALE" | "MALE" | "OTHER";
 export type Age = "13-14" | "15-17" | "18-21" | "22+";
 export type Compatibility = "100%" | "50%" | "0%";
@@ -16,7 +16,7 @@ export interface ISearchParams {
 export interface IBotUserProps {
     platform: Platform;
     userid: string;
-    lang: Lang;
+    lang: Language;
     gender: Gender | null;
     age: Age | null;
     searchPreferences: ISearchParams;
@@ -35,7 +35,7 @@ export default class BotUser implements IBotUserProps {
     public gender;
     public age;
 
-    constructor(userid: string, platform: Platform, lang: Lang, age: Age = null, gender: Gender = null, searchPrefs: ISearchParams = {
+    constructor(userid: string, platform: Platform, lang: Language, age: Age = null, gender: Gender = null, searchPrefs: ISearchParams = {
         gender: null,
         age: null,
         compatibility: "0%"
@@ -85,8 +85,8 @@ export default class BotUser implements IBotUserProps {
         this.age = newAge;
     }
 
-    public setLang(newLang: Lang) {
-        this.lang = newLang;
+    public setLanguage(newLanguage: Language) {
+        this.lang = newLanguage;
     }
 
     public setSearchPrefs(newSearchPrefs: ISearchParams) {
