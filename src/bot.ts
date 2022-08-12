@@ -1,0 +1,43 @@
+import runDiscordBot from "./discord/index";
+import runTelegramBot from "./telegram";
+import config from "../config.json";
+import {Telegraf} from "telegraf";
+import {Client, GatewayIntentBits, Partials} from "discord.js";
+import EventEmitter from 'events';
+import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
+import {compactOptions} from "telegraf/typings/core/helpers/compact";
+import BotUser, {IBotUserProps, IMapUserProps} from "./classes/BotUser";
+
+
+export const mySQLConnection = new MysqlKlaruConnection();
+export const userCache: Map<string, BotUser> = new Map()
+export const query: BotUser[] = [];
+export const conversations: Map<string, IMapUserProps> = new Map();
+export const telegramBot = new Telegraf(config.TelegramToken);
+export const eventHandler = new EventEmitter();
+export const discordBot = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.DirectMessageTyping,
+        GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.MessageContent
+    ],
+    partials:[
+        Partials.Channel
+    ]
+
+});
+
+
+
+mySQLConnection.connect(config.SQLHost, +config.SQLPort, config.SQLUserName, config.SQLPassword, config.SQLDatabase, async ()=>{
+    console.log("Connected to MySQL");
+    new BotUser('1234567890', "TELEGRAM", 'ua').insertNewUser();
+    runDiscordBot();
+    runTelegramBot();
+});
+
+
+
