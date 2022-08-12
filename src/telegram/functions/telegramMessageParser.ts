@@ -102,7 +102,7 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
             }
         });
 
-        //let text = "";
+        let text = "";
         const files: string[] = []
 
         //@ts-ignore
@@ -114,7 +114,7 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
                     //@ts-ignore
                     files.push(`telegramImageCache/${ctx.message?.video.file_id}.${url.href.split('.').pop()}`);
                     //@ts-ignore
-                    //text = ctx.message?.caption || " ";
+                    text = ctx.message?.caption || " ";
                     downloadEm.emit('photo');
                 });
             });
