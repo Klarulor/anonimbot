@@ -1,3 +1,10 @@
 {
-
+  "voice": "This is a voice message, discord doesn't support it!",
+  "search_add_query": "You have been added to the queue!",
+  "search_you_already": "You are already in the queue!",
+  "search_find_companion": "Companion was found, start the conversation!",
+  "search_stop_conversation": "You have stopped conversation!",
+  "cancel_not_query": "You are not in queue!",
+  "cancel_ok": "You was deleted from queue!",
+  "language_change": "You have changed language to English!"
 }

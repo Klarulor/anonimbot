@@ -1,3 +1,10 @@
 {
-
+  "voice": "Це голосове повідомлення!",
+  "search_add_query": "Ви були додані в чергу!",
+  "search_you_already": "Вы вже в черзі!",
+  "search_find_companion": "Співрозмовник був знайден, почніть розмову!",
+  "search_stop_conversation": "Ваш діалог був зупинений!",
+  "cancel_not_query": "Ви не в черзі!",
+  "cancel_ok": "Вас було видалено из черги!",
+  "language_change": "Ви змінили мову на українську!"
 }

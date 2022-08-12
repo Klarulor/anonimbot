@@ -2,9 +2,27 @@ import {mySQLConnection} from "../bot";
 
 export type Platform = "DISCORD" | "TELEGRAM";
 export type Lang = "ru" | "ua" | "en";
-export type Gender = "FEMALE" | "MALE" | "OTHER";
+export type Gender = "female" | "male";
 export type Age = "13-14" | "15-17" | "18-21" | "22+";
 export type Compatibility = "100%" | "50%" | "0%";
+
+export enum Ages {
+    LOW = "13-14",
+    MEDIUM = "15-17",
+    HIGH = "18-21",
+    VERYHIGH = "22+"
+}
+
+export enum Genders {
+    FEMALE = "female",
+    MALE = "male"
+}
+
+export enum Languages {
+    RU = "ru",
+    UA = "ua",
+    EN = "en"
+}
 
 export interface ISearchParams {
     compatibility: Compatibility;
@@ -24,6 +42,17 @@ export interface IBotUserProps {
 export interface IMapUserProps {
     id: string;
     type: Platform;
+}
+
+export interface ISqlData {
+    id: number;
+    userid: string;
+    lang: Lang;
+    gender: Gender | null;
+    age: Age | null;
+    searchGender: Gender | null;
+    searchAge: Age | null;
+    searchCompatibility: Compatibility;
 }
 
 export default class BotUser implements IBotUserProps {
@@ -47,34 +76,7 @@ export default class BotUser implements IBotUserProps {
         this.searchPreferences = searchPrefs;
     }
 
-    public checkCompatibility(searcher: BotUser, object: BotUser) {
-        let compatibilityId: number = 0;
-        if (searcher.searchPreferences.gender === object.gender) {
-            compatibilityId++;
-        }
-        if (searcher.searchPreferences.age === object.age) {
-            compatibilityId++;
-        }
-        switch (searcher.searchPreferences.compatibility) {
-            case "0%": {
-                return 1;
-            }
-            case "50%": {
-                if (compatibilityId > 0) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-            case "100%": {
-                if (compatibilityId === 2) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }
+
 
     public setGender(newGender: Gender) {
         this.gender = newGender;
@@ -133,6 +135,48 @@ export default class BotUser implements IBotUserProps {
                 mySQLConnection.reqQuery("UPDATE telegram SET searchAge = ? WHERE userid = ?", this.searchPreferences.age, this.userid);
                 mySQLConnection.reqQuery("UPDATE telegram SET searchCompatibility = ? WHERE userid = ?", this.searchPreferences.compatibility, this.userid);
                 break;
+            }
+        }
+    }
+
+    public static parseSql(sqlData: ISqlData[], platform: Platform) {
+        return new BotUser(
+            sqlData[0].userid,
+            platform,
+            sqlData[0].lang,
+            sqlData[0].age,
+            sqlData[0].gender,
+            {
+                compatibility: sqlData[0].searchCompatibility,
+                age: sqlData[0].searchAge,
+                gender: sqlData[0].searchGender
+            });
+    }
+    public static checkCompatibility(searcher: BotUser, object: BotUser) {
+        let compatibilityId: number = 0;
+        if (searcher.searchPreferences.gender === object.gender) {
+            compatibilityId++;
+        }
+        if (searcher.searchPreferences.age === object.age) {
+            compatibilityId++;
+        }
+        switch (searcher.searchPreferences.compatibility) {
+            case "0%": {
+                return 1;
+            }
+            case "50%": {
+                if (compatibilityId > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+            case "100%": {
+                if (compatibilityId === 2) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
     }

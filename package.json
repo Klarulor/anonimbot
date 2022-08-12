@@ -5,13 +5,15 @@
   "main": "src/bot.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/bot.ts"
+    "start": "ts-node ./src/bot.ts",
+    "regdiscom": "ts-node ./src/discord/deploycommands.ts"
   },
   "type": "commonjs",
   "author": "BoyFromGod",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.7.1",
+    "discord-api-types": "^0.37.2",
     "discord.js": "^14.1.2",
     "klaru-mysql-wrapper": "^1.0.5",
     "mysql2": "^2.3.3",

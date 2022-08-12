@@ -54,6 +54,13 @@ export default function runTelegramBot() {
 
     });
 
+    eventHandler.on('telegramCompanion', (id: number)=>{
+        telegram.sendMessage(id, "Companion Found");
+    });
+    eventHandler.on('telegramDelete', (id: number)=>{
+        telegram.sendMessage(id, "Companion ended conversation");
+    });
+
     telegramBot.launch().then(() => {
         console.log("Launched Telegram Bor")
     });
