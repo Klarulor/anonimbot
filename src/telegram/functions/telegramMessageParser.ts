@@ -102,7 +102,7 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
             }
         });
 
-        let text = ""; //
+        let text = ""; // tak
         const files: string[] = []
 
         //@ts-ignore
