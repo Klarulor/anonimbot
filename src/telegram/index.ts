@@ -3,10 +3,9 @@ import {Telegraf, Telegram} from "telegraf";
 import EventEmitter from "events";
 import fs from 'fs';
 import ru from "../langs/ru.json"
-import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
 import telegramMessageParser, {IParsedMessage} from "./functions/telegramMessageParser";
 import BotUser, {IMapUserProps} from "../classes/BotUser";
-import {eventHandler, mySQLConnection, telegramBot} from "../bot";
+import {conversations, eventHandler, mySQLConnection, telegramBot} from "../bot";
 const request = require('request');
 
 const download = function (uri: any, filename: any, pathName: any, callback: any = function () {
@@ -29,16 +28,30 @@ export default function runTelegramBot() {
         });
     }));
 
-    eventHandler.on("discordMsg", (Msg) => {
-        telegram.sendMessage(1219632518, Msg);
+    eventHandler.on("discordMsg", (Msg, chatId) => {
+        telegram.sendMessage(chatId, Msg);
     });
 
     telegramBot.on('message', async (ctx) => {
-        const downloadEm = new EventEmitter();
-        telegramMessageParser(ctx, telegram, downloadEm);
-        downloadEm.on("messageConverted", (obj:IParsedMessage)=>{
-            eventHandler.emit("telegramMessage", obj);
-        });
+        if(!conversations.has(String(ctx.message.chat.id))){
+            ctx.reply("You have not started searching yet!")
+        }else{
+            const user = conversations.get(String(ctx.message.chat.id));
+            switch (user.type){
+                case "TELEGRAM":{
+                    ctx.copyMessage(user.id);
+                    break;
+                }
+                case "DISCORD":{
+                    const downloadEm = new EventEmitter();
+                    telegramMessageParser(ctx, telegram, downloadEm).then(obj=>{
+                        eventHandler.emit("telegramMessage", obj, user.id);
+                    });
+                    break;
+                }
+            }
+        }
+
     });
 
     telegramBot.launch().then(() => {

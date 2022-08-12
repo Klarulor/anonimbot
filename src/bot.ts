@@ -27,14 +27,22 @@ export const discordBot = new Client({
     partials:[
         Partials.Channel
     ]
-
 });
 
 
 
 mySQLConnection.connect(config.SQLHost, +config.SQLPort, config.SQLUserName, config.SQLPassword, config.SQLDatabase, async ()=>{
     console.log("Connected to MySQL");
-    new BotUser('1234567890', "TELEGRAM", 'ua').insertNewUser();
+    // const data = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", '542545442352453453');
+    // console.log(data);
+    conversations.set("390561515054563328", {
+       id: "1219632518",
+       type: "TELEGRAM"
+    });
+    conversations.set("1219632518", {
+        id: "390561515054563328",
+        type: "DISCORD"
+    });
     runDiscordBot();
     runTelegramBot();
 });

@@ -5,7 +5,7 @@ import {Telegram} from "telegraf";
 const request = require('request');
 
 export interface IParsedMessage {
-    text: string | undefined;
+    text: string;
     files: string[] | undefined;
 }
 
@@ -16,15 +16,13 @@ const download = function (uri: any, filename: any, pathName: any, callback: any
     });
 };
 
-export default function telegramMessageParser(ctx: any, telegram: Telegram, downloadEm: EventEmitter) {
-
+export default function telegramMessageParser(ctx: any, telegram: Telegram, downloadEm: EventEmitter): Promise<IParsedMessage> {
+    return new Promise(res=>{
         downloadEm.on('finally', () => {
-            downloadEm.emit('messageConverted',{
-                //@ts-ignore
+            res({
                 text: text === "" ? ctx.message?.text : text,
                 files: files.length === 0 ? undefined : files
             });
-
         });
         downloadEm.on('document', () => {
             //@ts-ignore
@@ -121,6 +119,9 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
                 });
             });
         } else {
+
             downloadEm.emit('photo');
         }
+    });
+
 }

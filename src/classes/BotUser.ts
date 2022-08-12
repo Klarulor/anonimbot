@@ -1,4 +1,3 @@
-import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
 import {mySQLConnection} from "../bot";
 
 export type Platform = "DISCORD" | "TELEGRAM";
@@ -99,6 +98,7 @@ export default class BotUser implements IBotUserProps {
             type: this.platform
         }
     }
+
 
     public insertNewUser() {
         switch (this.platform) {
