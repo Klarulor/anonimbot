@@ -1,5 +1,4 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
-import getUser from "../functions/getUser";
 import {conversations, eventHandler, query} from "../../bot";
 import BotUser, {Lang} from "../../classes/BotUser";
 import {ILangProps} from "../../langs/ILangProps";
@@ -7,7 +6,7 @@ import {ILangProps} from "../../langs/ILangProps";
 
 module.exports = {
     async execute(interaction: ChatInputCommandInteraction) {
-        const curUser = await getUser(interaction.user.id);
+        const curUser = await BotUser.getUser(interaction.user.id, "DISCORD");
         const lang: ILangProps = require(`../../langs/${curUser.lang}.json`);
 
         let isInQuery = false;

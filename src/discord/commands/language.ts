@@ -1,12 +1,14 @@
 import {ChatInputCommandInteraction} from "discord.js";
-import getUser from "../functions/getUser";
-import ru from "../../langs/ru.json";
-import ua from "../../langs/ua.json";
-import en from "../../langs/en.json";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../langs/ILangProps";
 
 module.exports = {
     async execute(interaction: ChatInputCommandInteraction){
-        const curUser = await getUser(interaction.user.id);
+        const ru: ILangProps = require('../../langs/ru.json');
+        const es: ILangProps = require('../../langs/es.json');
+        const ua: ILangProps = require('../../langs/ua.json');
+        const en: ILangProps = require('../../langs/en.json');
+        const curUser = await BotUser.getUser(interaction.user.id, "DISCORD");
         switch (interaction.options.getString("language")){
             case 'ua': {
                 curUser.setLang('ua');
@@ -24,6 +26,12 @@ module.exports = {
                 curUser.setLang('ru');
                 curUser.updateUser();
                 interaction.reply(ru.language_change).catch(()=>{});
+                break;
+            }
+            case 'es': {
+                curUser.setLang('es');
+                curUser.updateUser();
+                interaction.reply(es.language_change).catch(()=>{});
                 break;
             }
             default: {

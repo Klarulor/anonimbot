@@ -1,5 +1,4 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
-import getUser from "../functions/getUser";
 import {conversations, eventHandler, query} from "../../bot";
 import BotUser, {Lang} from "../../classes/BotUser";
 import {ILangProps} from "../../langs/ILangProps";
@@ -7,26 +6,16 @@ import {ILangProps} from "../../langs/ILangProps";
 
 module.exports = {
     async execute(interaction: ChatInputCommandInteraction) {
-        const curUser = await getUser(interaction.user.id);
+        const curUser = await BotUser.getUser(interaction.user.id, "DISCORD");
         const lang: ILangProps = require(`../../langs/${curUser.lang}.json`);
 
         if(conversations.has(curUser.userid)){
             let companion = conversations.get(curUser.userid);
             conversations.delete(curUser.userid);
             conversations.delete(companion.id);
-            switch (companion.type){
-                case "DISCORD": {
-                    eventHandler.emit("discordDelete", companion.id);
-                    break;
-                }
-                case "TELEGRAM": {
-                    eventHandler.emit("telegramDelete", companion.id);
-                    break;
-                }
-            }
+            eventHandler.emit(`${companion.type.toLowerCase()}Delete`, companion.id);
             await interaction.channel.send(lang.search_stop_conversation).catch(()=>{});
         }
-
 
 
         let isInQuery = false;

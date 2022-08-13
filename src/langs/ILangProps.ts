@@ -17,4 +17,24 @@ export interface ILangProps{
     profile_search_preferences_gender: string;
     profile_search_preferences_compatibility: string;
     stop_not_in_conv: string;
+    settings_age: string;
+    settings_gender: string;
+    searchparams_age: string;
+    searchparams_gender: string;
+    searchparams_compatibility: string;
+    help_title: string;
+    help_commands_title: string;
+    help_commands_language: string;
+    help_commands_search: string;
+    help_commands_cancel: string;
+    help_commands_stop: string;
+    help_commands_settings: string;
+    help_commands_searchparams: string;
+    help_commands_profile: string;
+    help_compatibility_title: string;
+    help_compatibility_text: string;
+    delete_conversation: string;
+    match_companion: string;
+    not_in_conversation: string
+    not_in_dm: string;
 }

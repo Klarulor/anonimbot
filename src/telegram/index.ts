@@ -1,11 +1,9 @@
 import config from "../../config.json";
-import {Telegraf, Telegram} from "telegraf";
+import {Telegram} from "telegraf";
 import EventEmitter from "events";
 import fs from 'fs';
-import ru from "../langs/ru.json"
 import telegramMessageParser, {IParsedMessage} from "./functions/telegramMessageParser";
-import BotUser, {IMapUserProps} from "../classes/BotUser";
-import {conversations, eventHandler, mySQLConnection, telegramBot} from "../bot";
+import {conversations, eventHandler, telegramBot} from "../bot";
 const request = require('request');
 
 const download = function (uri: any, filename: any, pathName: any, callback: any = function () {
@@ -62,6 +60,6 @@ export default function runTelegramBot() {
     });
 
     telegramBot.launch().then(() => {
-        console.log("Launched Telegram Bor")
+        console.log("Launched Telegram Bot!")
     });
 }

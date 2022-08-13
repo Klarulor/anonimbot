@@ -34,6 +34,10 @@ const commands = [
                         name: "Українська",
                         value: Languages.UA
                     },
+                    {
+                        name: "Eesti",
+                        value: Languages.ES
+                    },
                 ]
                 return option.setRequired(true);
             }),
@@ -53,7 +57,7 @@ const commands = [
                 option.choices = [
                     {
                         name: Genders.MALE,
-                        value: Genders.FEMALE
+                        value: Genders.MALE
                     },
                     {
                         name: Genders.FEMALE,
@@ -163,7 +167,7 @@ const commands = [
                 option.choices = [
                     {
                         name: Genders.MALE,
-                        value: Genders.FEMALE
+                        value: Genders.MALE
                     },
                     {
                         name: Genders.FEMALE,

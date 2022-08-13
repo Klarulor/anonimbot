@@ -1,11 +1,11 @@
 import {ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import getUser from "../functions/getUser";
 import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
 
 
 module.exports = {
     async execute(interaction: ChatInputCommandInteraction) {
-        const curUser = await getUser(interaction.user.id);
+        const curUser = await BotUser.getUser(interaction.user.id, "DISCORD");
         const lang: ILangProps = require(`../../langs/${curUser.lang}.json`);
         const embedMessage = new EmbedBuilder()
             .setColor(Math.floor(Math.random() * 16777215))

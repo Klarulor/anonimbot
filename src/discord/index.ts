@@ -1,10 +1,10 @@
 import config from "../../config.json";
 import {Channel, ChatInputCommandInteraction, Client, Interaction, Message, TextChannel} from "discord.js";
-import {Telegram} from "telegraf";
 import path from 'path';
 import {IParsedMessage} from "../telegram/functions/telegramMessageParser";
 import {conversations, discordBot, eventHandler, mySQLConnection} from "../bot";
-import internal from "stream";
+import BotUser from "../classes/BotUser";
+import {ILangProps} from "../langs/ILangProps";
 
 const request = require('request');
 
@@ -17,7 +17,9 @@ export default function runDiscordBot(): void {
                 const commandObj = require(`./commands/${commandName}`);
                 commandObj.execute(interaction);
             } else {
-                interaction.reply("Command are not supported in guilds!").catch(()=>{});
+                const curUser = await BotUser.getUser(interaction.user.id, "DISCORD");
+                const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+                interaction.reply(lang.not_in_dm).catch(()=>{});
             }
 
         }
@@ -29,7 +31,9 @@ export default function runDiscordBot(): void {
         discordBot.users.fetch(message.author.id).then(async user => {
             const dm = user?.dmChannel ?? await user.createDM();
             if (!conversations.has(message.author.id)) {
-                return dm.send({content: "You have not started searching yet!"}).catch(()=>{});
+                const curUser = await BotUser.getUser(message.author.id, "DISCORD");
+                const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+                return dm.send({content: lang.not_in_conversation}).catch(()=>{});
             } else {
                 const user = conversations.get(message.author.id);
                 switch (user.type) {
@@ -53,7 +57,7 @@ export default function runDiscordBot(): void {
         });
     });
     discordBot.on("ready", () => {
-        console.log("Bot has started");
+        console.log("Launched discord bot!");
     });
     eventHandler.on('stickerSend', async (imgPath: string) => {
         try {
@@ -72,7 +76,9 @@ export default function runDiscordBot(): void {
         try {
             discordBot.users.fetch(id).then(async user => {
                 const dm = user?.dmChannel ?? await user.createDM();
-                dm.send("Companion was found").catch(()=>{});
+                const curUser = await BotUser.getUser(id, "DISCORD");
+                const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+                dm.send(lang.search_find_companion).catch(()=>{});
             });
         } catch (err) {
 
@@ -83,7 +89,9 @@ export default function runDiscordBot(): void {
         try {
             discordBot.users.fetch(id).then(async user => {
                 const dm = user?.dmChannel ?? await user.createDM();
-                dm.send("Companion ended conversation with you!").catch(()=>{});
+                const curUser = await BotUser.getUser(id, "DISCORD");
+                const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+                dm.send(lang.stop_not_in_conv).catch(()=>{});
             });
         } catch (err) {
 

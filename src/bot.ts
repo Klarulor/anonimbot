@@ -5,8 +5,7 @@ import {Telegraf} from "telegraf";
 import {Client, GatewayIntentBits, Partials} from "discord.js";
 import EventEmitter from 'events';
 import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
-import {compactOptions} from "telegraf/typings/core/helpers/compact";
-import BotUser, {IBotUserProps, IMapUserProps} from "./classes/BotUser";
+import BotUser, {IMapUserProps} from "./classes/BotUser";
 
 
 export const mySQLConnection = new MysqlKlaruConnection();
@@ -32,7 +31,7 @@ export const discordBot = new Client({
 
 
 mySQLConnection.connect(config.SQLHost, +config.SQLPort, config.SQLUserName, config.SQLPassword, config.SQLDatabase, async ()=>{
-    console.log("Connected to MySQL");
+    console.log("Connected to MySQL!");
     runDiscordBot();
     runTelegramBot();
 });

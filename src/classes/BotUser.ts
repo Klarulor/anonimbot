@@ -1,7 +1,7 @@
 import {mySQLConnection} from "../bot";
 
 export type Platform = "DISCORD" | "TELEGRAM";
-export type Lang = "ru" | "ua" | "en";
+export type Lang = "ru" | "ua" | "en" | "es";
 export type Gender = "female" | "male";
 export type Age = "13-14" | "15-17" | "18-21" | "22+";
 export type Compatibility = "100%" | "50%" | "0%";
@@ -21,7 +21,8 @@ export enum Genders {
 export enum Languages {
     RU = "ru",
     UA = "ua",
-    EN = "en"
+    EN = "en",
+    ES = "es"
 }
 
 export interface ISearchParams {
@@ -77,21 +78,24 @@ export default class BotUser implements IBotUserProps {
     }
 
 
-
     public setGender(newGender: Gender) {
         this.gender = newGender;
+        return this;
     }
 
     public setAge(newAge: Age) {
         this.age = newAge;
+        return this;
     }
 
     public setLang(newLang: Lang) {
         this.lang = newLang;
+        return this;
     }
 
     public setSearchPrefs(newSearchPrefs: ISearchParams) {
         this.searchPreferences = newSearchPrefs;
+        return this;
     }
 
     public getTypeObject(): IMapUserProps {
@@ -119,21 +123,25 @@ export default class BotUser implements IBotUserProps {
     public updateUser() {
         switch (this.platform) {
             case "DISCORD": {
-                mySQLConnection.reqQuery("UPDATE discord SET lang = ? WHERE userid = ?", this.lang, this.userid);
-                mySQLConnection.reqQuery("UPDATE discord SET gender = ? WHERE userid = ?", this.gender, this.userid);
-                mySQLConnection.reqQuery("UPDATE discord SET age = ? WHERE userid = ?", this.age, this.userid);
-                mySQLConnection.reqQuery("UPDATE discord SET searchGender = ? WHERE userid = ?", this.searchPreferences.gender, this.userid);
-                mySQLConnection.reqQuery("UPDATE discord SET searchAge = ? WHERE userid = ?", this.searchPreferences.age, this.userid);
-                mySQLConnection.reqQuery("UPDATE discord SET searchCompatibility = ? WHERE userid = ?", this.searchPreferences.compatibility, this.userid);
+                mySQLConnection.reqQuery("UPDATE discord SET lang = ?, gender = ?, age = ?, searchGender = ?, searchAge = ?, searchCompatibility = ? WHERE userid = ?",
+                    this.lang,
+                    this.gender,
+                    this.age,
+                    this.searchPreferences.gender,
+                    this.searchPreferences.age,
+                    this.searchPreferences.compatibility,
+                    this.userid);
                 break;
             }
             case "TELEGRAM": {
-                mySQLConnection.reqQuery("UPDATE telegram SET lang = ? WHERE userid = ?", this.lang, this.userid);
-                mySQLConnection.reqQuery("UPDATE telegram SET gender = ? WHERE userid = ?", this.gender, this.userid);
-                mySQLConnection.reqQuery("UPDATE telegram SET age = ? WHERE userid = ?", this.age, this.userid);
-                mySQLConnection.reqQuery("UPDATE telegram SET searchGender = ? WHERE userid = ?", this.searchPreferences.gender, this.userid);
-                mySQLConnection.reqQuery("UPDATE telegram SET searchAge = ? WHERE userid = ?", this.searchPreferences.age, this.userid);
-                mySQLConnection.reqQuery("UPDATE telegram SET searchCompatibility = ? WHERE userid = ?", this.searchPreferences.compatibility, this.userid);
+                mySQLConnection.reqQuery("UPDATE telegram SET lang = ?, gender = ?, age = ?, searchGender = ?, searchAge = ?, searchCompatibility = ? WHERE userid = ?",
+                    this.lang,
+                    this.gender,
+                    this.age,
+                    this.searchPreferences.gender,
+                    this.searchPreferences.age,
+                    this.searchPreferences.compatibility,
+                    this.userid);
                 break;
             }
         }
@@ -152,8 +160,11 @@ export default class BotUser implements IBotUserProps {
                 gender: sqlData[0].searchGender
             });
     }
+
     public static checkCompatibility(searcher: BotUser, object: BotUser) {
         let compatibilityId: number = 0;
+        let searcherCom = 0;
+        let objectCom = 0;
         if (searcher.searchPreferences.gender === object.gender) {
             compatibilityId++;
         }
@@ -162,22 +173,61 @@ export default class BotUser implements IBotUserProps {
         }
         switch (searcher.searchPreferences.compatibility) {
             case "0%": {
-                return 1;
+                searcherCom = 1;
+                break;
             }
             case "50%": {
-                if (compatibilityId > 0) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+                searcherCom = (compatibilityId > 0) ? 1 : 0;
+                break;
             }
             case "100%": {
-                if (compatibilityId === 2) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+                searcherCom = (compatibilityId === 2) ? 1 : 0;
+                break;
             }
         }
+        compatibilityId = 0;
+        if (object.searchPreferences.gender === searcher.gender) {
+            compatibilityId++;
+        }
+        if (object.searchPreferences.age === searcher.age) {
+            compatibilityId++;
+        }
+        switch (object.searchPreferences.compatibility) {
+            case "0%": {
+                objectCom = 1;
+                break;
+            }
+            case "50%": {
+                objectCom = (compatibilityId > 0) ? 1 : 0;
+                break;
+            }
+            case "100%": {
+                objectCom = (compatibilityId === 2) ? 1 : 0;
+                break;
+            }
+        }
+        return ((searcherCom===1)&&(objectCom===1)) ? 1 : 0;
     }
+
+    public static async getUser(id:string, platform: Platform){
+        if(platform=="TELEGRAM"){
+            const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
+            if (data === null) {
+                const curUser = new BotUser(id, "TELEGRAM", "ru");
+                curUser.insertNewUser();
+                return curUser;
+            } else {
+                return BotUser.parseSql(data, "TELEGRAM");
+            }
+        }
+        const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
+        if (data === null) {
+            const curUser = new BotUser(id, "DISCORD", "ru");
+            curUser.insertNewUser();
+            return curUser;
+        } else {
+            return BotUser.parseSql(data, "DISCORD");
+        }
+    }
+
 }
