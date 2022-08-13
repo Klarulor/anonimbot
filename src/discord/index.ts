@@ -17,7 +17,7 @@ export default function runDiscordBot(): void {
                 const commandObj = require(`./commands/${commandName}`);
                 commandObj.execute(interaction);
             } else {
-                interaction.reply("Command are not supported in guilds!");
+                interaction.reply("Command are not supported in guilds!").catch(()=>{});
             }
 
         }

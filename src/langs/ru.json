@@ -6,5 +6,15 @@
   "search_stop_conversation": "Вы закончили диалог с собеседником!",
   "cancel_not_query": "Вы не в очереди!",
   "cancel_ok": "Вы были убраны из очередь!",
-  "language_change": "Вы поменяли язык на русский!"
+  "language_change": "Вы поменяли язык на русский!",
+  "profile_desc": "Это вся информация про ваш профиль!",
+  "profile_stats": "Ваши текущие настройки:",
+  "profile_stats_gender": "Ваш гендер:",
+  "profile_stats_age": "Ваш возраст:",
+  "profile_stats_undefined": "Не указано",
+  "profile_search_preferences": "Ваши поисковые предпочтения:",
+  "profile_search_preferences_age": "Предпочитаемый возраст:",
+  "profile_search_preferences_gender": "Предпочитаемый гендер:",
+  "profile_search_preferences_compatibility": "Предпочитаемая совместимость:",
+  "stop_not_in_conv": "Вы не в разговоре!"
 }

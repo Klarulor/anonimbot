@@ -31,7 +31,7 @@ const commands = [
                         value: Languages.RU
                     },
                     {
-                        name: "Український",
+                        name: "Українська",
                         value: Languages.UA
                     },
                 ]

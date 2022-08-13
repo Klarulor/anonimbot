@@ -6,5 +6,15 @@
   "search_stop_conversation": "You have stopped conversation!",
   "cancel_not_query": "You are not in queue!",
   "cancel_ok": "You was deleted from queue!",
-  "language_change": "You have changed language to English!"
+  "language_change": "You have changed language to English!",
+  "profile_desc": "This is all information about your profile!",
+  "profile_stats": "Your current settings:",
+  "profile_stats_gender": "Your gender:",
+  "profile_stats_age": "Your age:",
+  "profile_stats_undefined": "Not specified",
+  "profile_search_preferences": "Your search preferences:",
+  "profile_search_preferences_age": "Prefer age:",
+  "profile_search_preferences_gender": "Prefer gender:",
+  "profile_search_preferences_compatibility": "Prefer compatibility:",
+  "stop_not_in_conv": "You are not in conversation!"
 }

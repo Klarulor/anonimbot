@@ -6,5 +6,15 @@
   "search_stop_conversation": "Ваш діалог був зупинений!",
   "cancel_not_query": "Ви не в черзі!",
   "cancel_ok": "Вас було видалено из черги!",
-  "language_change": "Ви змінили мову на українську!"
+  "language_change": "Ви змінили мову на українську!",
+  "profile_desc": "Це вся інформація щодо вашого профілю!",
+  "profile_stats": "Ваші поточні налаштування:",
+  "profile_stats_gender": "Ваш гендер:",
+  "profile_stats_age": "Ваш вік:",
+  "profile_stats_undefined": "Не вказано",
+  "profile_search_preferences": "Ваші пошукові вподобання:",
+  "profile_search_preferences_age": "Вік:",
+  "profile_search_preferences_gender": "Гендер:",
+  "profile_search_preferences_compatibility": "Сумісність:",
+  "stop_not_in_conv": "Ви не в розмові!"
 }

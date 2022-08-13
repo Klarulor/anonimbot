@@ -21,9 +21,9 @@ module.exports = {
 
         if(isInQuery){
             query.splice(indexOfItem, 1);
-            await interaction.reply(lang.cancel_ok);
+            await interaction.reply(lang.cancel_ok).catch(()=>{});
         }else{
-            await interaction.reply(lang.cancel_not_query);
+            await interaction.reply(lang.cancel_not_query).catch(()=>{});;
         }
     }
 }
