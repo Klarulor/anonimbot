@@ -36,5 +36,12 @@
   "delete_conversation": "Собеседник закончил с вами разговор :<",
   "match_companion": "Собеседник был найден!",
   "not_in_conversation": "Вы не в разговоре, напишите /search.",
-  "not_in_dm": "Команды недоступны на серверах!"
+  "not_in_dm": "Команды недоступны на серверах!",
+  "welcome_back": "Спасибо, что вернулись, вас не хватало!",
+  "choose_language": "Выберите язык на который хотите поменять:",
+  "settings_telegram": "Выберите настройку которую хотите изменить:",
+  "settings_telegram_buttons_age": "Возраст",
+  "settings_telegram_buttons_gender": "Пол",
+  "settings_telegram_buttons_searchparams": "Параметры поиска",
+  "settings_telegram_age": "Выберите ваш возраст:"
 }

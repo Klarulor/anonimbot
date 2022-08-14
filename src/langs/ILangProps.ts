@@ -37,4 +37,11 @@ export interface ILangProps{
     match_companion: string;
     not_in_conversation: string
     not_in_dm: string;
+    welcome_back: string;
+    choose_language: string;
+    settings_telegram: string;
+    settings_telegram_buttons_age: string;
+    settings_telegram_buttons_gender: string;
+    settings_telegram_buttons_searchparams: string;
+    settings_telegram_age: string;
 }

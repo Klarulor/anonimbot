@@ -36,5 +36,12 @@
   "delete_conversation": "Companion stopped conversation with you :<",
   "match_companion": "Companion was found!",
   "not_in_conversation": "You are not in conversation, send /search.",
-  "not_in_dm": "Commands are only in direct messages!"
+  "not_in_dm": "Commands are only in direct messages!",
+  "welcome_back": "Thank you for coming back!",
+  "choose_language": "Choose language to set:",
+  "settings_telegram": "Choose setting to change:",
+  "settings_telegram_buttons_age": "Age",
+  "settings_telegram_buttons_gender": "Gender",
+  "settings_telegram_buttons_searchparams": "Search Parameters",
+  "settings_telegram_age": "Choose your age:"
 }

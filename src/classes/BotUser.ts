@@ -209,11 +209,16 @@ export default class BotUser implements IBotUserProps {
         return ((searcherCom===1)&&(objectCom===1)) ? 1 : 0;
     }
 
+    public static async hasUserTelegramOnly(id: string){
+        const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
+        return data === null;
+    }
+
     public static async getUser(id:string, platform: Platform){
         if(platform=="TELEGRAM"){
             const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
             if (data === null) {
-                const curUser = new BotUser(id, "TELEGRAM", "ru");
+                const curUser = new BotUser(id, "TELEGRAM", "en");
                 curUser.insertNewUser();
                 return curUser;
             } else {
@@ -222,12 +227,11 @@ export default class BotUser implements IBotUserProps {
         }
         const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
         if (data === null) {
-            const curUser = new BotUser(id, "DISCORD", "ru");
+            const curUser = new BotUser(id, "DISCORD", "en");
             curUser.insertNewUser();
             return curUser;
         } else {
             return BotUser.parseSql(data, "DISCORD");
         }
     }
-
 }

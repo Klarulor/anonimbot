@@ -58,6 +58,7 @@ export default function runDiscordBot(): void {
     });
     discordBot.on("ready", () => {
         console.log("Launched discord bot!");
+        discordBot.user.setPresence({ activities: [{ name: 'type /help' }], status: 'online' });
     });
     eventHandler.on('stickerSend', async (imgPath: string) => {
         try {

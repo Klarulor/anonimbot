@@ -36,5 +36,12 @@
   "delete_conversation": "Співрозмовник закінчив з вами розмову :<",
   "match_companion": "Співрозмовник був знайден!",
   "not_in_conversation": "Ви не в розмові, напишить /search.",
-  "not_in_dm": "Команди не доступні на серверах!"
+  "not_in_dm": "Команди не доступні на серверах!",
+  "welcome_back": "Дякую, що повернулися, вас не вистачало!",
+  "choose_language": "Виберіть мову на яку хочете змінити українську:",
+  "settings_telegram": "Виберіть налаштування, яке хочете змінити:",
+  "settings_telegram_buttons_age": "Вік",
+  "settings_telegram_buttons_gender": "Стать",
+  "settings_telegram_buttons_searchparams": "Параметри пошуку",
+  "settings_telegram_age": "Виберіть ваш вік:"
 }

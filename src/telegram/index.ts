@@ -4,6 +4,8 @@ import EventEmitter from "events";
 import fs from 'fs';
 import telegramMessageParser, {IParsedMessage} from "./functions/telegramMessageParser";
 import {conversations, eventHandler, telegramBot} from "../bot";
+import commandInitializer from "./functions/commandInitializer";
+import actionsInitializer from "./functions/actionsInitializer";
 const request = require('request');
 
 const download = function (uri: any, filename: any, pathName: any, callback: any = function () {
@@ -17,8 +19,8 @@ const download = function (uri: any, filename: any, pathName: any, callback: any
 export default function runTelegramBot() {
     const telegram = new Telegram(config.TelegramToken);
 
-    telegramBot.start((ctx) => ctx.reply('Welcome'));
-    telegramBot.help((ctx) => ctx.reply('Send me a sticker'));
+    commandInitializer();
+    actionsInitializer();
 
     telegramBot.on('sticker', (ctx) => telegram.getFileLink(ctx.message?.sticker.file_id).then(async (photoURL) => {
         download(photoURL.href, ctx.message?.sticker.file_id, "stickerCache", function () {
@@ -49,7 +51,6 @@ export default function runTelegramBot() {
                 }
             }
         }
-
     });
 
     eventHandler.on('telegramCompanion', (id: number)=>{

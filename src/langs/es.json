@@ -36,5 +36,11 @@
   "delete_conversation": "Vestlus lõpetas vestluse teiega :<",
   "match_companion": "Kaaslane on leitud!",
   "not_in_conversation": "Te ei osale vestluses, tippige /search.",
-  "not_in_dm": "Meeskonnad pole serverites saadaval!"
+  "not_in_dm": "Meeskonnad pole serverites saadaval!",
+  "welcome_back": "Aitäh tagasi tulemast, igatsesime teist!",
+  "choose_language": "Valige seadistamiseks keel:",
+  "settings_telegram": "Valige seade, mida soovite muuta:",
+  "settings_telegram_buttons_age": "Vanus",
+  "settings_telegram_buttons_gender": "Sugu",
+  "settings_telegram_buttons_searchparams": "Otsinguvalikud"
 }
