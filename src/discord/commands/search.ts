@@ -17,8 +17,13 @@ module.exports = {
             await interaction.channel.send(lang.search_stop_conversation).catch(()=>{});
         }
 
-
-        if (!query.filter(x => x.userid === curUser.userid)) {
+        let isInQuery = false;
+        query.map(item => {
+            if (curUser.userid === item.userid) {
+                isInQuery = true;
+            }
+        });
+        if (!isInQuery) {
             let match = false;
             let searchUserIndex: number = 0;
             query.map((item, index) => {
