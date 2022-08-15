@@ -26,8 +26,7 @@ export default function runDiscordBot(): void {
     });
 
     discordBot.on("messageCreate", (message: Message) => {
-        if (message.author.bot) return;
-        if (!message.channel.isDMBased()) return;
+        if (message.author.bot || !message.channel.isDMBased()) return;
         discordBot.users.fetch(message.author.id).then(async user => {
             const dm = user?.dmChannel ?? await user.createDM();
             if (!conversations.has(message.author.id)) {
@@ -57,7 +56,7 @@ export default function runDiscordBot(): void {
         });
     });
     discordBot.on("ready", () => {
-        console.log("Launched discord bot!");
+        console.log("Discord bot successfully connected to Discord API!");
         discordBot.user.setPresence({ activities: [{ name: 'type /help' }], status: 'online' });
     });
     eventHandler.on('stickerSend', async (imgPath: string, id: string) => {

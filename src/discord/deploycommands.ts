@@ -35,7 +35,7 @@ const commands = [
                         value: Languages.UA
                     },
                     {
-                        name: "Eesti",
+                        name: "Eesti Eesti pergeli Eesti",
                         value: Languages.ES
                     },
                 ]

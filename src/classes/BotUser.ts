@@ -1,8 +1,8 @@
 import {mySQLConnection} from "../bot";
 
 export type Platform = "DISCORD" | "TELEGRAM";
-export type Lang = "ru" | "ua" | "en" | "es";
-export type Gender = "female" | "male";
+export type Language = "ru" | "ua" | "en" | "es";
+export type Gender = "female" | "male" | "femboy";
 export type Age = "13-14" | "15-17" | "18-21" | "22+";
 export type Compatibility = "100%" | "50%" | "0%";
 
@@ -34,7 +34,7 @@ export interface ISearchParams {
 export interface IBotUserProps {
     platform: Platform;
     userid: string;
-    lang: Lang;
+    lang: Language;
     gender: Gender | null;
     age: Age | null;
     searchPreferences: ISearchParams;
@@ -45,10 +45,10 @@ export interface IMapUserProps {
     type: Platform;
 }
 
-export interface ISqlData {
+export interface ISQLData {
     id: number;
     userid: string;
-    lang: Lang;
+    lang: Language;
     gender: Gender | null;
     age: Age | null;
     searchGender: Gender | null;
@@ -64,7 +64,7 @@ export default class BotUser implements IBotUserProps {
     public gender;
     public age;
 
-    constructor(userid: string, platform: Platform, lang: Lang, age: Age = null, gender: Gender = null, searchPrefs: ISearchParams = {
+    constructor(userid: string, platform: Platform, lang: Language, age: Age = null, gender: Gender = null, searchPrefs: ISearchParams = {
         gender: null,
         age: null,
         compatibility: "0%"
@@ -88,7 +88,7 @@ export default class BotUser implements IBotUserProps {
         return this;
     }
 
-    public setLang(newLang: Lang) {
+    public setLang(newLang: Language) {
         this.lang = newLang;
         return this;
     }
@@ -162,7 +162,7 @@ export default class BotUser implements IBotUserProps {
         }
     }
 
-    public static parseSql(sqlData: ISqlData[], platform: Platform) {
+    public static parseSql(sqlData: ISQLData[], platform: Platform) {
         return new BotUser(
             sqlData[0].userid,
             platform,
@@ -176,14 +176,14 @@ export default class BotUser implements IBotUserProps {
             });
     }
 
-    public static checkCompatibility(searcher: BotUser, object: BotUser) {
+    public static checkCompatibility(searcher: BotUser, target: BotUser) {
         let compatibilityId: number = 0;
         let searcherCom = 0;
         let objectCom = 0;
-        if (searcher.searchPreferences.gender === object.gender || searcher.searchPreferences.gender === null) {
+        if (searcher.searchPreferences.gender === target.gender || !searcher.searchPreferences.gender) {
             compatibilityId++;
         }
-        if (searcher.searchPreferences.age === object.age || searcher.searchPreferences.age === null) {
+        if (searcher.searchPreferences.age === target.age || !searcher.searchPreferences.age) {
             compatibilityId++;
         }
         switch (searcher.searchPreferences.compatibility) {
@@ -201,23 +201,23 @@ export default class BotUser implements IBotUserProps {
             }
         }
         compatibilityId = 0;
-        if (object.searchPreferences.gender === searcher.gender || object.searchPreferences.gender === null) {
+        if (target.searchPreferences.gender === searcher.gender || !target.searchPreferences.gender) {
             compatibilityId++;
         }
-        if (object.searchPreferences.age === searcher.age || object.searchPreferences.age === null) {
+        if (target.searchPreferences.age === searcher.age || !target.searchPreferences.age) {
             compatibilityId++;
         }
-        switch (object.searchPreferences.compatibility) {
+        switch (target.searchPreferences.compatibility) {
             case "0%": {
                 objectCom = 1;
                 break;
             }
             case "50%": {
-                objectCom = (compatibilityId > 0) ? 1 : 0;
+                objectCom = compatibilityId > 0 ? 1 : 0;
                 break;
             }
             case "100%": {
-                objectCom = (compatibilityId === 2) ? 1 : 0;
+                objectCom = compatibilityId === 2 ? 1 : 0;
                 break;
             }
         }
@@ -225,29 +225,27 @@ export default class BotUser implements IBotUserProps {
     }
 
     public static async hasUserTelegramOnly(id: string) {
-        const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
-        return data !== null;
+        const data: ISQLData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
+        return !data;
     }
 
     public static async getUser(id: string, platform: Platform) {
-        if (platform == "TELEGRAM") {
-            const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
-            if (data === null) {
+        if (platform === "TELEGRAM") {
+            const data: ISQLData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
+            if (!data) {
                 const curUser = new BotUser(id, "TELEGRAM", "en");
                 curUser.insertNewUser();
                 return curUser;
-            } else {
+            } else
                 return BotUser.parseSql(data, "TELEGRAM");
-            }
         } else {
-            const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
-            if (data === null) {
+            const data: ISQLData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
+            if (!data) {
                 const curUser = new BotUser(id, "DISCORD", "en");
                 curUser.insertNewUser();
                 return curUser;
-            } else {
+            } else
                 return BotUser.parseSql(data, "DISCORD");
-            }
         }
 
     }
