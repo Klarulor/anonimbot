@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
 import {conversations, eventHandler, query} from "../../bot";
-import BotUser, {Lang} from "../../classes/BotUser";
+import BotUser, {Language} from "../../classes/BotUser";
 import {ILangProps} from "../../langs/ILangProps";
 
 
@@ -18,17 +18,11 @@ module.exports = {
         }
 
 
-        let isInQuery = false;
-        query.map(item => {
-            if (curUser.userid === item.userid) {
-                isInQuery = true;
-            }
-        });
-        if (!isInQuery) {
+        if (!query.filter(x => x.userid === curUser.userid)) {
             let match = false;
             let searchUserIndex: number = 0;
             query.map((item, index) => {
-                switch (BotUser.checkCompatibility(curUser, item)) {
+                switch (BotUser.checkCompatibility(curUser, item)) { // For future
                     case 1: {
                         match = true;
                         searchUserIndex = index;
@@ -53,9 +47,8 @@ module.exports = {
                 query.push(curUser);
                 await interaction.reply(lang.search_add_query).catch(()=>{});
             }
-        }else{
+        }else
             await interaction.reply(lang.search_you_already).catch(()=>{});
-        }
     }
 
 }

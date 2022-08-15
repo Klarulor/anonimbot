@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
 import {conversations, eventHandler, query} from "../../bot";
-import BotUser, {Lang} from "../../classes/BotUser";
+import BotUser, {Language} from "../../classes/BotUser";
 import {ILangProps} from "../../langs/ILangProps";
 
 
@@ -21,8 +21,7 @@ module.exports = {
         if(isInQuery){
             query.splice(indexOfItem, 1);
             await interaction.reply(lang.cancel_ok).catch(()=>{});
-        }else{
+        }else
             await interaction.reply(lang.cancel_not_query).catch(()=>{});;
-        }
     }
 }

@@ -14,8 +14,7 @@ module.exports = {
             conversations.delete(companion.id);
             eventHandler.emit(`${companion.type.toLowerCase()}Delete`, companion.id);
             await interaction.reply(lang.search_stop_conversation).catch(()=>{});
-        }else{
+        }else
             await interaction.reply(lang.stop_not_in_conv).catch(()=>{});
-        }
     }
 }
