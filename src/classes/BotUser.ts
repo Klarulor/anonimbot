@@ -98,6 +98,21 @@ export default class BotUser implements IBotUserProps {
         return this;
     }
 
+    public setSearchAge(newAge: Age){
+        this.searchPreferences.age = newAge;
+        return this;
+    }
+
+    public setSearchGender(newGender: Gender){
+        this.searchPreferences.gender = newGender;
+        return this;
+    }
+
+    public setSearchCompability(newCompatibility: Compatibility){
+        this.searchPreferences.compatibility = newCompatibility;
+        return this;
+    }
+
     public getTypeObject(): IMapUserProps {
         return {
             id: this.userid,
@@ -165,10 +180,10 @@ export default class BotUser implements IBotUserProps {
         let compatibilityId: number = 0;
         let searcherCom = 0;
         let objectCom = 0;
-        if (searcher.searchPreferences.gender === object.gender) {
+        if (searcher.searchPreferences.gender === object.gender || searcher.searchPreferences.gender === null) {
             compatibilityId++;
         }
-        if (searcher.searchPreferences.age === object.age) {
+        if (searcher.searchPreferences.age === object.age || searcher.searchPreferences.age === null) {
             compatibilityId++;
         }
         switch (searcher.searchPreferences.compatibility) {
@@ -186,10 +201,10 @@ export default class BotUser implements IBotUserProps {
             }
         }
         compatibilityId = 0;
-        if (object.searchPreferences.gender === searcher.gender) {
+        if (object.searchPreferences.gender === searcher.gender || object.searchPreferences.gender === null) {
             compatibilityId++;
         }
-        if (object.searchPreferences.age === searcher.age) {
+        if (object.searchPreferences.age === searcher.age || object.searchPreferences.age === null) {
             compatibilityId++;
         }
         switch (object.searchPreferences.compatibility) {
@@ -206,16 +221,16 @@ export default class BotUser implements IBotUserProps {
                 break;
             }
         }
-        return ((searcherCom===1)&&(objectCom===1)) ? 1 : 0;
+        return ((searcherCom === 1) && (objectCom === 1)) ? 1 : 0;
     }
 
-    public static async hasUserTelegramOnly(id: string){
+    public static async hasUserTelegramOnly(id: string) {
         const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
-        return data === null;
+        return data !== null;
     }
 
-    public static async getUser(id:string, platform: Platform){
-        if(platform=="TELEGRAM"){
+    public static async getUser(id: string, platform: Platform) {
+        if (platform == "TELEGRAM") {
             const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM telegram WHERE userid = ?", id);
             if (data === null) {
                 const curUser = new BotUser(id, "TELEGRAM", "en");
@@ -224,14 +239,16 @@ export default class BotUser implements IBotUserProps {
             } else {
                 return BotUser.parseSql(data, "TELEGRAM");
             }
-        }
-        const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
-        if (data === null) {
-            const curUser = new BotUser(id, "DISCORD", "en");
-            curUser.insertNewUser();
-            return curUser;
         } else {
-            return BotUser.parseSql(data, "DISCORD");
+            const data: ISqlData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
+            if (data === null) {
+                const curUser = new BotUser(id, "DISCORD", "en");
+                curUser.insertNewUser();
+                return curUser;
+            } else {
+                return BotUser.parseSql(data, "DISCORD");
+            }
         }
+
     }
 }

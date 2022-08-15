@@ -44,4 +44,10 @@ export interface ILangProps{
     settings_telegram_buttons_gender: string;
     settings_telegram_buttons_searchparams: string;
     settings_telegram_age: string;
+    settings_telegram_gender: string;
+    settings_telegram_searchparams: string;
+    settings_telegram_buttons_compatibility: string;
+    settings_telegram_searchage: string;
+    settings_telegram_searchgender: string;
+    settings_telegram_searchcompatibility: string;
 }

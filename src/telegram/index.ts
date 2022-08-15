@@ -6,6 +6,9 @@ import telegramMessageParser, {IParsedMessage} from "./functions/telegramMessage
 import {conversations, eventHandler, telegramBot} from "../bot";
 import commandInitializer from "./functions/commandInitializer";
 import actionsInitializer from "./functions/actionsInitializer";
+import BotUser from "../classes/BotUser";
+import {ILangProps} from "../langs/ILangProps";
+
 const request = require('request');
 
 const download = function (uri: any, filename: any, pathName: any, callback: any = function () {
@@ -23,9 +26,23 @@ export default function runTelegramBot() {
     actionsInitializer();
 
     telegramBot.on('sticker', (ctx) => telegram.getFileLink(ctx.message?.sticker.file_id).then(async (photoURL) => {
-        download(photoURL.href, ctx.message?.sticker.file_id, "stickerCache", function () {
-            eventHandler.emit('stickerSend', `stickerCache/${ctx.message?.sticker.file_id}.${photoURL.href.split('.').pop()}`);
-        });
+        if (!conversations.has(String(ctx.message.chat.id))) {
+            ctx.reply("You have not started searching yet!")
+        } else {
+            const user = conversations.get(String(ctx.message.chat.id));
+            switch (user.type) {
+                case "TELEGRAM": {
+                    ctx.copyMessage(user.id);
+                    break;
+                }
+                case "DISCORD": {
+                    download(photoURL.href, ctx.message?.sticker.file_id, "stickerCache", function () {
+                        eventHandler.emit('stickerSend', `stickerCache/${ctx.message?.sticker.file_id}.${photoURL.href.split('.').pop()}`, user.id);
+                    });
+                    break;
+                }
+            }
+        }
     }));
 
     eventHandler.on("discordMsg", (Msg, chatId) => {
@@ -33,18 +50,18 @@ export default function runTelegramBot() {
     });
 
     telegramBot.on('message', async (ctx) => {
-        if(!conversations.has(String(ctx.message.chat.id))){
+        if (!conversations.has(String(ctx.message.chat.id))) {
             ctx.reply("You have not started searching yet!")
-        }else{
+        } else {
             const user = conversations.get(String(ctx.message.chat.id));
-            switch (user.type){
-                case "TELEGRAM":{
+            switch (user.type) {
+                case "TELEGRAM": {
                     ctx.copyMessage(user.id);
                     break;
                 }
-                case "DISCORD":{
+                case "DISCORD": {
                     const downloadEm = new EventEmitter();
-                    telegramMessageParser(ctx, telegram, downloadEm).then(obj=>{
+                    telegramMessageParser(ctx, telegram, downloadEm).then(obj => {
                         eventHandler.emit("telegramMessage", obj, user.id);
                     });
                     break;
@@ -53,11 +70,15 @@ export default function runTelegramBot() {
         }
     });
 
-    eventHandler.on('telegramCompanion', (id: number)=>{
-        telegram.sendMessage(id, "Companion Found");
+    eventHandler.on('telegramCompanion', async (id: number) => {
+        const curUser = await BotUser.getUser(String(id), "TELEGRAM");
+        const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+        telegram.sendMessage(id, lang.search_find_companion);
     });
-    eventHandler.on('telegramDelete', (id: number)=>{
-        telegram.sendMessage(id, "Companion ended conversation");
+    eventHandler.on('telegramDelete', async (id: number) => {
+        const curUser = await BotUser.getUser(String(id), "TELEGRAM");
+        const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+        telegram.sendMessage(id, lang.search_stop_conversation);
     });
 
     telegramBot.launch().then(() => {

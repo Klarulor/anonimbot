@@ -43,5 +43,11 @@
   "settings_telegram_buttons_age": "Возраст",
   "settings_telegram_buttons_gender": "Пол",
   "settings_telegram_buttons_searchparams": "Параметры поиска",
-  "settings_telegram_age": "Выберите ваш возраст:"
+  "settings_telegram_age": "Выберите ваш возраст:",
+  "settings_telegram_gender": "Выберите ваш пол:",
+  "settings_telegram_searchparams": "Выберите параметр поиска какой хотите изменить:",
+  "settings_telegram_buttons_compatibility": "Совместимость",
+  "settings_telegram_searchage": "Выберите возраст субъекта которого ищете:",
+  "settings_telegram_searchgender": "Выберите пол субъекта который ищете:",
+  "settings_telegram_searchcompatibility": "Выберите совместимость с субъектом которого ищете:"
 }

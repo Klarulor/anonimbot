@@ -60,9 +60,9 @@ export default function runDiscordBot(): void {
         console.log("Launched discord bot!");
         discordBot.user.setPresence({ activities: [{ name: 'type /help' }], status: 'online' });
     });
-    eventHandler.on('stickerSend', async (imgPath: string) => {
+    eventHandler.on('stickerSend', async (imgPath: string, id: string) => {
         try {
-            discordBot.users.fetch("390561515054563328").then(async user => {
+            discordBot.users.fetch(id).then(async user => {
                 const dm = user?.dmChannel ?? await user.createDM();
                 const imagesPath = path.join(__dirname, `../${imgPath}`);
                 dm.send({files: [imagesPath]}).catch(()=>{});

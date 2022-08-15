@@ -42,5 +42,12 @@
   "settings_telegram": "Valige seade, mida soovite muuta:",
   "settings_telegram_buttons_age": "Vanus",
   "settings_telegram_buttons_gender": "Sugu",
-  "settings_telegram_buttons_searchparams": "Otsinguvalikud"
+  "settings_telegram_buttons_searchparams": "Otsinguvalikud",
+  "settings_telegram_age": "Valige oma vanus:",
+  "settings_telegram_gender": "Valige oma sugu:",
+  "settings_telegram_searchparams": "Valige missugune paraameter te tahate muuta:",
+  "settings_telegram_buttons_compatibility": "Ühilduvus",
+  "settings_telegram_searchage": "Valige otsitava subjekti vanus:",
+  "settings_telegram_searchgender": "Valige otsitava teema sugu:",
+  "settings_telegram_searchcompatibility": "Valige ühilduvus otsitava teemaga:"
 }

@@ -43,5 +43,10 @@
   "settings_telegram_buttons_age": "Age",
   "settings_telegram_buttons_gender": "Gender",
   "settings_telegram_buttons_searchparams": "Search Parameters",
-  "settings_telegram_age": "Choose your age:"
+  "settings_telegram_age": "Choose your age:",
+  "settings_telegram_gender": "Choose your gender:",
+  "settings_telegram_searchparams": "Choose parameter you want to change:",
+  "settings_telegram_searchage": "Choose age you are looking for:",
+  "settings_telegram_searchgender": "Choose gender you are looking for:",
+  "settings_telegram_searchcompatibility": "Choose compatibility with person:"
 }
