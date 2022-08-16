@@ -30,7 +30,7 @@ export const discordBot = new Client({
 
 
 mySQLConnection.connect(config.SQLHost, +config.SQLPort, config.SQLUserName, config.SQLPassword, config.SQLDatabase, async ()=>{
-    console.log("Connected to MySQL!");
+    console.log("Successfully connected to MySQL!");
     runDiscordBot();
     runTelegramBot();
 });
