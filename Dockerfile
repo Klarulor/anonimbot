@@ -1,10 +1,11 @@
-FROM node:latest
+FROM node
 
+WORKDIR /app
 
-WORKDIR /bot
+COPY package.json .
+
+RUN npm i && npm i ts-node
 
 COPY . .
 
-RUN npm i
-
-CMD ["npx", "ts-node", "/bot/src"]
+CMD ["npm", "start"]
