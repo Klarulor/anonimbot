@@ -82,6 +82,6 @@ export default function runTelegramBot() {
     });
 
     telegramBot.launch().then(() => {
-        console.log("Launched Telegram Bot!")
+        console.log("Telegram bot successfully connected to Telegram API!")
     });
 }

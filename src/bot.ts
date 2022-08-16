@@ -17,7 +17,6 @@ export const eventHandler = new EventEmitter();
 export const discordBot = new Client({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.DirectMessageTyping,
         GatewayIntentBits.DirectMessageReactions,
@@ -31,7 +30,7 @@ export const discordBot = new Client({
 
 
 mySQLConnection.connect(config.SQLHost, +config.SQLPort, config.SQLUserName, config.SQLPassword, config.SQLDatabase, async ()=>{
-    console.log("Connected to MySQL!");
+    console.log("Successfully connected to MySQL!");
     runDiscordBot();
     runTelegramBot();
 });

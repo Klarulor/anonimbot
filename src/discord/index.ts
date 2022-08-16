@@ -55,10 +55,7 @@ export default function runDiscordBot(): void {
             }
         });
     });
-    discordBot.on("ready", () => {
-        console.log("Discord bot successfully connected to Discord API!");
-        discordBot.user.setPresence({ activities: [{ name: 'type /help' }], status: 'online' });
-    });
+
     eventHandler.on('stickerSend', async (imgPath: string, id: string) => {
         try {
             discordBot.users.fetch(id).then(async user => {
@@ -115,6 +112,10 @@ export default function runDiscordBot(): void {
         } catch (err) {
             console.log(err);
         }
+    });
+    discordBot.on("ready", () => {
+        console.log("Discord bot successfully connected to Discord API!");
+        discordBot.user.setPresence({ activities: [{ name: 'type /help' }], status: 'online' });
     });
     discordBot.login(config.DiscordToken);
 }
