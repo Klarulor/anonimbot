@@ -16,14 +16,14 @@ module.exports = {
                 {
                     name: `__**${lang.profile_stats}**__`,
                     value: `**${lang.profile_stats_age}** *\`\`${curUser.age ?? lang.profile_stats_undefined}\`\`*
-                            **${lang.profile_stats_gender}** *\`\`${curUser.gender ?? lang.profile_stats_undefined}\`\`*`
+**${lang.profile_stats_gender}** *\`\`${curUser.gender ?? lang.profile_stats_undefined}\`\`*`
                 },
                 {name: '\u200B', value: '\u200B'},
                 {
                     name: `__**${lang.profile_search_preferences}**__`,
                     value: `**${lang.profile_search_preferences_age}** *\`\`${curUser.searchPreferences.age ?? lang.profile_stats_undefined}\`\`*
-                            **${lang.profile_search_preferences_gender}** *\`\`${curUser.searchPreferences.gender ?? lang.profile_stats_undefined}\`\`*
-                            **${lang.profile_search_preferences_compatibility}** *\`\`${curUser.searchPreferences.compatibility ?? lang.profile_stats_undefined}\`\`*`,
+**${lang.profile_search_preferences_gender}** *\`\`${curUser.searchPreferences.gender ?? lang.profile_stats_undefined}\`\`*
+**${lang.profile_search_preferences_compatibility}** *\`\`${curUser.searchPreferences.compatibility ?? lang.profile_stats_undefined}\`\`*`,
                     inline: false
                 },
                 {name: '\u200B', value: '\u200B'},

@@ -12,15 +12,13 @@ module.exports = {
             .setTitle(lang.help_title)
             .addFields(
                 {name: '\u200B', value: '\u200B'},
-                {name: lang.help_commands_title, value: `
-                \`\`/language\`\` - ${lang.help_commands_language}
-                \`\`/search\`\` - ${lang.help_commands_search}
-                \`\`/cancel\`\` - ${lang.help_commands_cancel}
-                \`\`/stop\`\` - ${lang.help_commands_stop}
-                \`\`/settings\`\` - ${lang.help_commands_settings}
-                \`\`/searchparams\`\` - ${lang.help_commands_searchparams}
-                \`\`/profile\`\` - ${lang.help_commands_profile}
-                `},
+                {name: lang.help_commands_title, value: `\`\`/language\`\` - ${lang.help_commands_language}
+\`\`/search\`\` - ${lang.help_commands_search}
+\`\`/cancel\`\` - ${lang.help_commands_cancel}
+\`\`/stop\`\` - ${lang.help_commands_stop}
+\`\`/settings\`\` - ${lang.help_commands_settings}
+\`\`/searchparams\`\` - ${lang.help_commands_searchparams}
+\`\`/profile\`\` - ${lang.help_commands_profile}`},
                 {name: '\u200B', value: '\u200B'},
                 {name: lang.help_compatibility_title, value: lang.help_compatibility_text},
             )
