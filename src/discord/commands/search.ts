@@ -17,12 +17,7 @@ module.exports = {
             await interaction.channel.send(lang.search_stop_conversation).catch(()=>{});
         }
 
-<<<<<<< HEAD
-
-        let isInQuery = Z
-=======
         let isInQuery = false;
->>>>>>> 357ecb2934621969739fbfbd6a6107b56316085d
         query.map(item => {
             if (curUser.userid === item.userid) {
                 isInQuery = true;
