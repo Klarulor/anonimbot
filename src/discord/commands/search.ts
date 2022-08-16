@@ -17,7 +17,12 @@ module.exports = {
             await interaction.channel.send(lang.search_stop_conversation).catch(()=>{});
         }
 
+<<<<<<< HEAD
+
+        let isInQuery = Z
+=======
         let isInQuery = false;
+>>>>>>> 357ecb2934621969739fbfbd6a6107b56316085d
         query.map(item => {
             if (curUser.userid === item.userid) {
                 isInQuery = true;
@@ -27,7 +32,7 @@ module.exports = {
             let match = false;
             let searchUserIndex: number = 0;
             query.map((item, index) => {
-                switch (BotUser.checkCompatibility(curUser, item)) { // For future
+                switch (BotUser.checkCompatibility(curUser, item)) {
                     case 1: {
                         match = true;
                         searchUserIndex = index;
@@ -52,8 +57,9 @@ module.exports = {
                 query.push(curUser);
                 await interaction.reply(lang.search_add_query).catch(()=>{});
             }
-        }else
+        }else{
             await interaction.reply(lang.search_you_already).catch(()=>{});
+        }
     }
 
 }
