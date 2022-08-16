@@ -16,7 +16,7 @@
   "profile_search_preferences_age": "Eelistatud vanus:",
   "profile_search_preferences_gender": "Eelistatud sugu:",
   "profile_search_preferences_compatibility": "Eelistatud ühilduvus:",
-  "stop_not_in_conv": "Te ei ole vestluses!",
+  "stop_not_in_conv": "Te ei ole vestluses või vestus praegu pandi kinni!",
   "settings_age": "Te ei muutunud oma vanus!",
   "settings_gender": "Te muutusite oma vanus!",
   "searchparams_age": "Olete muutnud otsitava subjekti vanust!",
