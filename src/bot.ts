@@ -5,7 +5,8 @@ import {Telegraf} from "telegraf";
 import {Client, GatewayIntentBits, Partials} from "discord.js";
 import EventEmitter from 'events';
 import {MysqlKlaruConnection} from "klaru-mysql-wrapper/dist";
-import BotUser, {IMapUserProps} from "./classes/BotUser";
+import BotUser from "./classes/BotUser";
+import {IMapUserProps} from "./features/interfaces/IMapUserProps";
 
 
 export const mySQLConnection = new MysqlKlaruConnection();

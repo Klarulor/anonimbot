@@ -1,4 +1,4 @@
-import {Ages, Genders, Languages} from "../classes/BotUser";
+import {Ages, Genders, Languages} from "../features/enums";
 
 const { SlashCommandBuilder, Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');

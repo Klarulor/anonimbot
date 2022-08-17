@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction} from "discord.js";
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 module.exports = {
     async execute(interaction: ChatInputCommandInteraction){

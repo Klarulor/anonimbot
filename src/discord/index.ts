@@ -4,7 +4,7 @@ import path from 'path';
 import {IParsedMessage} from "../telegram/functions/telegramMessageParser";
 import {conversations, discordBot, eventHandler, mySQLConnection} from "../bot";
 import BotUser from "../classes/BotUser";
-import {ILangProps} from "../langs/ILangProps";
+import {ILangProps} from "../features/interfaces/ILangProps";
 
 const request = require('request');
 
@@ -69,13 +69,13 @@ export default function runDiscordBot(): void {
 
     });
 
-    eventHandler.on("discordCompanion", (id: string) => {
+    eventHandler.on("discordCompanion", (id: string, platform: string) => {
         try {
             discordBot.users.fetch(id).then(async user => {
                 const dm = user?.dmChannel ?? await user.createDM();
                 const curUser = await BotUser.getUser(id, "DISCORD");
                 const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
-                dm.send(lang.search_find_companion).catch(()=>{});
+                dm.send(`${lang.search_find_companion} \n${lang.platform} ${platform.toLowerCase()}`).catch(()=>{});
             });
         } catch (err) {
 
@@ -88,7 +88,7 @@ export default function runDiscordBot(): void {
                 const dm = user?.dmChannel ?? await user.createDM();
                 const curUser = await BotUser.getUser(id, "DISCORD");
                 const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
-                dm.send(lang.stop_not_in_conv).catch(()=>{});
+                dm.send(lang.search_stop_conversation).catch(()=>{});
             });
         } catch (err) {
 

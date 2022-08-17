@@ -1,6 +1,7 @@
 import {telegramBot} from "../../bot";
-import BotUser, {Genders} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
+import {Genders} from "../../features/enums";
 
 export default function genderActions(){
 

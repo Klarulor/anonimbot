@@ -50,4 +50,5 @@ export interface ILangProps{
     settings_telegram_searchage: string;
     settings_telegram_searchgender: string;
     settings_telegram_searchcompatibility: string;
+    platform: string;
 }

@@ -1,7 +1,7 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
 import {conversations, eventHandler, query} from "../../bot";
-import BotUser, {Language} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 
 module.exports = {
@@ -46,8 +46,8 @@ module.exports = {
                 conversations.set(companion.userid, curUser.getTypeObject());
                 conversations.set(curUser.userid, companion.getTypeObject());
 
-                eventHandler.emit(`${companion.platform.toLowerCase()}Companion`, companion.userid);
-                await interaction.reply(lang.search_find_companion).catch(()=>{});
+                eventHandler.emit(`${companion.platform.toLowerCase()}Companion`, companion.userid, curUser.platform);
+                await interaction.reply(`${lang.search_find_companion} \n${lang.platform} ${companion.platform.toLowerCase()}`).catch(()=>{});
             } else {
                 query.push(curUser);
                 await interaction.reply(lang.search_add_query).catch(()=>{});

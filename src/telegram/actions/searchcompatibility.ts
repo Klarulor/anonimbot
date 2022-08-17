@@ -1,6 +1,6 @@
 import {telegramBot} from "../../bot";
-import BotUser, {Ages} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 export default function searchcompatibilityActions(){
     telegramBot.action("0%", async (ctx) =>{

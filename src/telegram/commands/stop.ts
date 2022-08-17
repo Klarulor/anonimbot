@@ -1,6 +1,6 @@
 import {conversations, eventHandler, telegramBot} from "../../bot";
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 export default function stopCommand() {
     telegramBot.command('stop', async (ctx) => {

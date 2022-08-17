@@ -1,5 +1,5 @@
 import {ChatInputCommandInteraction} from "discord.js";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 import {conversations, eventHandler} from "../../bot";
 import BotUser from "../../classes/BotUser";
 

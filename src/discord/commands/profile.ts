@@ -1,5 +1,5 @@
 import {ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 import BotUser from "../../classes/BotUser";
 
 

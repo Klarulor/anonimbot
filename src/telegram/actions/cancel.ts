@@ -1,5 +1,5 @@
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 import {query, telegramBot} from "../../bot";
 
 export default function cancelAction(){

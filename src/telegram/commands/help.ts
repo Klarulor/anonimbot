@@ -1,6 +1,6 @@
 import {telegramBot} from "../../bot";
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 export default function helpCommand() {
     telegramBot.command("help", async (ctx) => {
@@ -24,7 +24,7 @@ export default function helpCommand() {
 <b>${lang.help_compatibility_title}</b>
     ${lang.help_compatibility_text}
 
-<code>AnonimChatBot v0.1.0 | Questions: @boyfromgod</code>`
+<code>AnonimChatBot v0.2.0 | Questions: @boyfromgod</code>`
             , {
                 parse_mode: "HTML"
             }

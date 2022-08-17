@@ -48,5 +48,6 @@
   "settings_telegram_searchparams": "Choose parameter you want to change:",
   "settings_telegram_searchage": "Choose age you are looking for:",
   "settings_telegram_searchgender": "Choose gender you are looking for:",
-  "settings_telegram_searchcompatibility": "Choose compatibility with person:"
+  "settings_telegram_searchcompatibility": "Choose compatibility with person:",
+  "platform": "Platform:"
 }

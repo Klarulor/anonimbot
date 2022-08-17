@@ -1,60 +1,10 @@
 import {mySQLConnection} from "../bot";
+import {Age, Compatibility, Gender, Language, Platform} from "../features/types";
+import {IBotUserProps} from "../features/interfaces/IBotUserProps";
+import {ISearchParams} from "../features/interfaces/ISearchParams";
+import {IMapUserProps} from "../features/interfaces/IMapUserProps";
+import {ISQLData} from "../features/interfaces/ISQLData";
 
-export type Platform = "DISCORD" | "TELEGRAM";
-export type Language = "ru" | "ua" | "en" | "es";
-export type Gender = "female" | "male" | "femboy";
-export type Age = "13-14" | "15-17" | "18-21" | "22+";
-export type Compatibility = "100%" | "50%" | "0%";
-
-export enum Ages {
-    LOW = "13-14",
-    MEDIUM = "15-17",
-    HIGH = "18-21",
-    VERYHIGH = "22+"
-}
-
-export enum Genders {
-    FEMALE = "female",
-    MALE = "male"
-}
-
-export enum Languages {
-    RU = "ru",
-    UA = "ua",
-    EN = "en",
-    ES = "es"
-}
-
-export interface ISearchParams {
-    compatibility: Compatibility;
-    gender: Gender | null;
-    age: Age | null;
-}
-
-export interface IBotUserProps {
-    platform: Platform;
-    userid: string;
-    lang: Language;
-    gender: Gender | null;
-    age: Age | null;
-    searchPreferences: ISearchParams;
-}
-
-export interface IMapUserProps {
-    id: string;
-    type: Platform;
-}
-
-export interface ISQLData {
-    id: number;
-    userid: string;
-    lang: Language;
-    gender: Gender | null;
-    age: Age | null;
-    searchGender: Gender | null;
-    searchAge: Age | null;
-    searchCompatibility: Compatibility;
-}
 
 export default class BotUser implements IBotUserProps {
     readonly platform;
@@ -132,7 +82,6 @@ export default class BotUser implements IBotUserProps {
                 break;
             }
         }
-
     }
 
     public updateUser() {

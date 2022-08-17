@@ -1,6 +1,7 @@
 import {telegramBot} from "../../bot";
-import BotUser, {Languages} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
+import {Languages} from "../../features/enums";
 
 export default function languageActions(){
     telegramBot.action('ua', (ctx)=>{

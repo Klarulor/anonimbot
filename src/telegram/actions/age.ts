@@ -1,6 +1,7 @@
 import {telegramBot} from "../../bot";
-import BotUser, {Ages} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
+import {Ages} from "../../features/enums";
 
 export default function ageActions(){
     telegramBot.action(Ages.LOW, async (ctx) =>{

@@ -49,5 +49,6 @@
   "settings_telegram_buttons_compatibility": "Сумісність",
   "settings_telegram_searchage": "Виберіть вік людини, яку ви шукаєте:",
   "settings_telegram_searchgender": "Виберіть стать людини, яку ви шукаєте:",
-  "settings_telegram_searchcompatibility": "Виберіть сумісність с людиною, яку ви шукаєте:"
+  "settings_telegram_searchcompatibility": "Виберіть сумісність с людиною, яку ви шукаєте:",
+  "platform": "Платформа:"
 }

@@ -1,7 +1,7 @@
 import {ChatInputCommandInteraction, User} from "discord.js";
 import {conversations, eventHandler, query} from "../../bot";
-import BotUser, {Language} from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import BotUser from "../../classes/BotUser";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 
 module.exports = {

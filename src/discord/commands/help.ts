@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
                 {name: '\u200B', value: '\u200B'},
                 {name: lang.help_compatibility_title, value: lang.help_compatibility_text},
             )
-            .setFooter({text: 'AnonimChatBot v0.1.0 | Questions: Boy From God#2772'});
+            .setFooter({text: 'AnonimChatBot v0.2.0 | Questions: Boy From God#2772'});
         interaction.reply({embeds: [embed]});
     }
 }

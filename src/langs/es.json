@@ -49,5 +49,6 @@
   "settings_telegram_buttons_compatibility": "Ühilduvus",
   "settings_telegram_searchage": "Valige otsitava subjekti vanus:",
   "settings_telegram_searchgender": "Valige otsitava teema sugu:",
-  "settings_telegram_searchcompatibility": "Valige ühilduvus otsitava teemaga:"
+  "settings_telegram_searchcompatibility": "Valige ühilduvus otsitava teemaga:",
+  "platform": "Platvorm:"
 }

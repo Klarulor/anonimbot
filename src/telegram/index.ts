@@ -7,7 +7,7 @@ import {conversations, eventHandler, telegramBot} from "../bot";
 import commandInitializer from "./functions/commandInitializer";
 import actionsInitializer from "./functions/actionsInitializer";
 import BotUser from "../classes/BotUser";
-import {ILangProps} from "../langs/ILangProps";
+import {ILangProps} from "../features/interfaces/ILangProps";
 
 const request = require('request');
 
@@ -27,7 +27,9 @@ export default function runTelegramBot() {
 
     telegramBot.on('sticker', (ctx) => telegram.getFileLink(ctx.message?.sticker.file_id).then(async (photoURL) => {
         if (!conversations.has(String(ctx.message.chat.id))) {
-            ctx.reply("You have not started searching yet!")
+            const curUser = await BotUser.getUser(String(ctx.message.chat.id), "TELEGRAM");
+            const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+            ctx.reply(lang.stop_not_in_conv);
         } else {
             const user = conversations.get(String(ctx.message.chat.id));
             switch (user.type) {
@@ -51,7 +53,9 @@ export default function runTelegramBot() {
 
     telegramBot.on('message', async (ctx) => {
         if (!conversations.has(String(ctx.message.chat.id))) {
-            ctx.reply("You have not started searching yet!")
+            const curUser = await BotUser.getUser(String(ctx.message.chat.id), "TELEGRAM");
+            const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
+            ctx.reply(lang.stop_not_in_conv);
         } else {
             const user = conversations.get(String(ctx.message.chat.id));
             switch (user.type) {
@@ -70,10 +74,10 @@ export default function runTelegramBot() {
         }
     });
 
-    eventHandler.on('telegramCompanion', async (id: number) => {
+    eventHandler.on('telegramCompanion', async (id: number, platform: string) => {
         const curUser = await BotUser.getUser(String(id), "TELEGRAM");
         const lang: ILangProps = require(`../langs/${curUser.lang}.json`);
-        telegram.sendMessage(id, lang.search_find_companion);
+        telegram.sendMessage(id, `${lang.search_find_companion} \n${lang.platform} ${platform.toLowerCase()}`);
     });
     eventHandler.on('telegramDelete', async (id: number) => {
         const curUser = await BotUser.getUser(String(id), "TELEGRAM");

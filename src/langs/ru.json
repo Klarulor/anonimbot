@@ -49,5 +49,6 @@
   "settings_telegram_buttons_compatibility": "Совместимость",
   "settings_telegram_searchage": "Выберите возраст субъекта которого ищете:",
   "settings_telegram_searchgender": "Выберите пол субъекта который ищете:",
-  "settings_telegram_searchcompatibility": "Выберите совместимость с субъектом которого ищете:"
+  "settings_telegram_searchcompatibility": "Выберите совместимость с субъектом которого ищете:",
+  "platform": "Платформа:"
 }

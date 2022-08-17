@@ -1,6 +1,6 @@
 import {conversations, eventHandler, query, telegramBot} from "../../bot";
 import BotUser from "../../classes/BotUser";
-import {ILangProps} from "../../langs/ILangProps";
+import {ILangProps} from "../../features/interfaces/ILangProps";
 import {inlineKeyboard} from "telegraf/typings/markup";
 
 export default function searchCommand(){
@@ -46,8 +46,8 @@ export default function searchCommand(){
                 conversations.set(companion.userid, curUser.getTypeObject());
                 conversations.set(curUser.userid, companion.getTypeObject());
 
-                eventHandler.emit(`${companion.platform.toLowerCase()}Companion`, companion.userid);
-                ctx.reply(lang.search_find_companion);
+                eventHandler.emit(`${companion.platform.toLowerCase()}Companion`, companion.userid, curUser.platform);
+                ctx.reply(`${lang.search_find_companion} \n${lang.platform} ${companion.platform.toLowerCase()}`);
             } else {
                 query.push(curUser);
                 ctx.reply(lang.search_add_query, {
