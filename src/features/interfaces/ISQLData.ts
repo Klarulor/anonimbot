@@ -1,4 +1,5 @@
-import {Age, Compatibility, Gender, Language} from "../../classes/BotUser";
+import {Age, Compatibility, Gender, Language} from "../types";
+
 
 export interface ISQLData {
     id: number;
