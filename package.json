@@ -15,7 +15,7 @@
     "@types/node": "^18.7.1",
     "discord-api-types": "^0.37.2",
     "discord.js": "^14.1.2",
-    "klaru-mysql-wrapper": "^1.0.5",
+    "klaru-mysql-wrapper": "^1.0.6",
     "mysql2": "^2.3.3",
     "request": "^2.88.2",
     "telegraf": "^4.8.6"
