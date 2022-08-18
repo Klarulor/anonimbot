@@ -189,6 +189,7 @@ export default class BotUser implements IBotUserProps {
                 return BotUser.parseSql(data, "TELEGRAM");
         } else {
             const data: ISQLData[] = await mySQLConnection.reqQuery("SELECT * FROM discord WHERE userid = ?", id);
+            console.log(data);
             if (!data) {
                 const curUser = new BotUser(id, "DISCORD", "en");
                 curUser.insertNewUser();
