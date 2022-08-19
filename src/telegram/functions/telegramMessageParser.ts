@@ -2,6 +2,7 @@ import EventEmitter from "events";
 import ru from "../../langs/ru.json";
 import fs from "fs";
 import {Telegram} from "telegraf";
+
 const request = require('request');
 
 export interface IParsedMessage {
@@ -17,7 +18,7 @@ const download = function (uri: any, filename: any, pathName: any, callback: any
 };
 
 export default function telegramMessageParser(ctx: any, telegram: Telegram, downloadEm: EventEmitter): Promise<IParsedMessage> {
-    return new Promise(res=>{
+    return new Promise(res => {
         downloadEm.on('finally', () => {
             res({
                 text: text === "" ? ctx.message?.text : text,
@@ -123,5 +124,4 @@ export default function telegramMessageParser(ctx: any, telegram: Telegram, down
             downloadEm.emit('photo');
         }
     });
-
 }
