@@ -7,20 +7,40 @@ const config = require('../../config.json');
 const commands = [
     new SlashCommandBuilder()
         .setName('search')
-        .setDescription('Searches for a new talk companion!'),
+        .setNameLocalization("uk", "пошук")
+        .setNameLocalization("ru", "поиск")
+        .setDescription('Searches for a new talk companion!')
+        .setDescriptionLocalization("uk", "Пошук рандомного співрозмовника!")
+        .setDescriptionLocalization("ru", "Поиск рандомного собеседника!"),
     new SlashCommandBuilder()
         .setName('cancel')
-        .setDescription('Stop searching!'),
+        .setNameLocalization("uk", "відміна")
+        .setNameLocalization("ru", "отмена")
+        .setDescription('Stop searching!')
+        .setDescriptionLocalization("uk", "Відміна пошуку!")
+        .setDescriptionLocalization("ru", "Отменить поиск!"),
     new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Returns info about bots commands!'),
+        .setNameLocalization("uk", "допомога")
+        .setNameLocalization("ru", "помощь")
+        .setDescription('Returns info about bots commands!')
+        .setDescriptionLocalization("uk", "Допомога по боту!")
+        .setDescriptionLocalization("ru", "Помощь по боту!"),
     new SlashCommandBuilder()
         .setName('language')
+        .setNameLocalization("uk", "мова")
+        .setNameLocalization("ru", "язык")
         .setDescription('Change language setting!')
+        .setDescriptionLocalization("uk", "Змінити мову бота!")
+        .setDescriptionLocalization("ru", "Изменить язык бота!")
         .addStringOption((option: any): any=>{
                 option
                     .setName('language')
+                    .setNameLocalization("uk", "мова")
+                    .setNameLocalization("ru", "язык")
                     .setDescription('Choose from availible languages!')
+                    .setDescriptionLocalization("uk", "Виберіть із доступних мов!")
+                    .setDescriptionLocalization("ru", "Выберите из доступных языков!")
                 option.choices = [
                     {
                         name: "English",
@@ -43,12 +63,22 @@ const commands = [
             }),
     new SlashCommandBuilder()
         .setName('profile')
-        .setDescription('Returns your profile and search settings!'),
+        .setNameLocalization("uk", "профіль")
+        .setNameLocalization("ru", "профиль")
+        .setDescription('Returns your profile and search settings!')
+        .setDescriptionLocalization("uk", "Повертає ваш профіль!")
+        .setDescriptionLocalization("ru", "Возвращает ваш профиль!"),
     new SlashCommandBuilder()
         .setName('searchparams')
+        .setNameLocalization("uk", "пошуковіпараметри")
+        .setNameLocalization("ru", "поисковыепараметры")
         .setDescription('Search params chooser!')
+        .setDescriptionLocalization("uk", "Змініть ваші пошукові параметри!")
+        .setDescriptionLocalization("ru", "Измените поисковые параметры!")
         .addSubcommand((subcommand: any)=>{
             subcommand.setName('gender');
+            subcommand.setNameLocalization("uk", "стать")
+            subcommand.setNameLocalization("ru", "стать")
             subcommand.setDescription('Choose gender you are searching for')
             subcommand.addStringOption((option: any): any=>{
                 option
@@ -70,6 +100,8 @@ const commands = [
         })
         .addSubcommand((subcommand: any)=>{
             subcommand.setName('compatibility');
+            subcommand.setNameLocalization("uk", "сумісність")
+            subcommand.setNameLocalization("ru", "совместимость")
             subcommand.setDescription('Choose level of search params compatibility!')
             subcommand.addStringOption((option: any): any=>{
                 option
@@ -95,6 +127,8 @@ const commands = [
         })
         .addSubcommand((subcommand: any)=>{
             subcommand.setName('age');
+            subcommand.setNameLocalization("uk", "вік")
+            subcommand.setNameLocalization("ru", "возраст")
             subcommand.setDescription('Choose age of person you are looking for')
             subcommand.addStringOption((option: any): any=>{
                 option
@@ -124,13 +158,25 @@ const commands = [
         }),
     new SlashCommandBuilder()
         .setName('stop')
-        .setDescription('Stop your conversation'),
+        .setNameLocalization("uk", "стоп")
+        .setNameLocalization("ru", "стоп")
+        .setDescription('Stop your conversation')
+        .setDescriptionLocalization("uk", "Зупинити розмову!")
+        .setDescriptionLocalization("ru", "Остановить разговор!"),
     new SlashCommandBuilder()
         .setName('settings')
+        .setNameLocalization("uk", "налаштування")
+        .setNameLocalization("ru", "настройки")
         .setDescription('Set your appereance settings')
+        .setDescriptionLocalization("uk", "Налаштуйте свій вік і стать!")
+        .setDescriptionLocalization("ru", "Настройте свой возраст и стать!")
         .addSubcommand((subcommand: any)=>{
             subcommand.setName('age');
+            subcommand.setNameLocalization("uk", "вік")
+            subcommand.setNameLocalization("ru", "возраст")
             subcommand.setDescription('Choose your age')
+            subcommand.setDescriptionLocalization("uk", "Налаштуйте свій вік!")
+            subcommand.setDescriptionLocalization("ru", "Настройте свой возраст!")
             subcommand.addStringOption((option: any): any=>{
                 option
                     .setName('age')
@@ -159,11 +205,19 @@ const commands = [
         })
         .addSubcommand((subcommand: any)=>{
             subcommand.setName('gender');
+            subcommand.setNameLocalization("uk", "стать")
+            subcommand.setNameLocalization("ru", "стать")
             subcommand.setDescription('Choose your gender')
+            subcommand.setDescriptionLocalization("uk", "Налаштуйте свою стать!")
+            subcommand.setDescriptionLocalization("ru", "Настройте свою стать!")
             subcommand.addStringOption((option: any): any=>{
                 option
                     .setName('gender')
                     .setDescription('Choose from genders!')
+                    .setNameLocalization("uk", "стать")
+                    .setNameLocalization("ru", "стать")
+                    .setDescriptionLocalization("uk", "Виберіть стать!")
+                    .setDescriptionLocalization("ru", "Выберите стать!")
                 option.choices = [
                     {
                         name: Genders.MALE,
