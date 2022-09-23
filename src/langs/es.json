@@ -33,7 +33,7 @@
   "help_commands_profile": "Kuva praegused seaded.",
   "help_compatibility_title": "Kuidas ühilduvus töötab?",
   "help_compatibility_text": "Väga lihtne! Kui seate selle väärtuseks 0 protsenti, siis sobib teile iga vestluskaaslane, \ni kui 50, siis ainult 1 parameetri sobivuse korral \ni kui 100, siis ühilduvus 100 protsenti!",
-  "delete_conversation": "Vestlus lõpetas vestluse teiega :<",
+  "delete_conversation": "Vestlus oli lõpetatud vestluse teiega :<",
   "match_companion": "Kaaslane on leitud!",
   "not_in_conversation": "Te ei osale vestluses, tippige /search.",
   "not_in_dm": "Meeskonnad pole serverites saadaval!",
